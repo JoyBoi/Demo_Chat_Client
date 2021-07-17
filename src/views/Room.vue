@@ -9,5 +9,7 @@ export default {
   components: {
     Chats,
   },
+  created() {},
+  mounted() {},
 };
 </script>

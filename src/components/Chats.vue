@@ -72,7 +72,11 @@ export default {
       },
     };
   },
-
+  // watch:{
+  //   roomname(){
+  //     if()
+  //   }
+  // },
   computed: {
     ...mapState({
       roomname: (state) => state.room.title,
@@ -88,6 +92,11 @@ export default {
       this.form.message = "";
       // alert(JSON.stringify(this.form));
     },
+  },
+  mounted() {
+    if (!this.roomname) {
+      this.$router.replace("/");
+    }
   },
   created() {
     // const initReactiveProperties = (user) => {
