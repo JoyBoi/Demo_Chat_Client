@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-container fluid="md" class="my-4 p-2" style="height: 39rem">
+    <b-container class="my-4 p-2" style="height: auto">
       <b-card
         bg-variant="info"
         :header="roomname"
@@ -8,53 +8,84 @@
         header-tag="header"
         header-bg-variant="light"
         header-class="test-center display-4"
-        class="h-100"
+        class="h-100 p-0 m-0"
       >
-        <b-card-body>
-          <b-row no-gutters align-h="between" class="h-100">
-            <b-col align-self="center" cols="3" class="bg-info h-95 pr-4">
-              <h3 class="font-weight-bold text-light mb-3">Active users</h3>
+        <!-- <b-card-body> -->
+        <b-row>
+          <b-col
+            cols="12"
+            lg="3"
+            md="12"
+            class="d-block d-sm-none d-md-none bg-info h-95"
+          >
+            <b-button v-b-toggle.collapse-1 variant="primary" class="pb-2 mb-2"
+              >Active Users</b-button
+            >
+            <b-collapse id="collapse-1" class="mt-2">
               <b-list-group class="userlist h-90">
                 <b-list-group-item
-                  class="border-0 font-weight-bold text-left text-primary"
+                  class="border-0 font-weight-bold text-left text-primary mb-2"
                   v-for="user in users"
                   :key="user.id"
                   >{{ user.username }}</b-list-group-item
                 >
               </b-list-group>
-            </b-col>
-            <b-col align-self="baseline" cols="9" class="bg-light h-75">
-              <b-card bg-variant="light" class="text-left chat w-100">
-                <b-card-body class="m-2 p-1">
-                  <ul class="messages" v-chat-scroll>
-                    <li v-for="message in messages" :key="message.id">
-                      <span class="text-primary">{{ message.sender }}</span>
-                      <span class="text-muted">: {{ message.content }}</span>
-                      <span class="text-muted time">{{ message.time }}</span>
-                    </li>
-                  </ul>
-                </b-card-body>
-              </b-card>
-              <b-card bg-variant="light" class="text-left width-fix w-100">
-                <b-form inline @submit="onSubmit">
-                  <b-form-input
-                    v-model="form.message"
-                    placeholder="Enter message"
-                    required
-                    style="width: 86%"
-                  >
-                  </b-form-input>
-                  <b-button
-                    type="submit"
-                    variant="info"
-                    class="mx-2 font-weight-bold"
-                    >Send</b-button
-                  >
-                </b-form>
-              </b-card>
-            </b-col>
-          </b-row>
-        </b-card-body>
+            </b-collapse>
+          </b-col>
+          <b-col
+            cols="12"
+            lg="3"
+            md="12"
+            class="d-none d-sm-block bg-info h-95 pr-4"
+          >
+            <h3 class="font-weight-bold text-light mb-3 text-center">
+              Active users
+            </h3>
+            <b-list-group class="userlist h-90">
+              <b-list-group-item
+                class="border-0 font-weight-bold text-left text-primary mb-2"
+                v-for="user in users"
+                :key="user.id"
+                >{{ user.username }} ✅</b-list-group-item
+              >
+            </b-list-group>
+          </b-col>
+          <b-col cols="12" lg="9" md="12" sm="12" class="bg-light h-75">
+            <ul class="messages chat" v-chat-scroll>
+              <li v-for="message in messages" :key="message.id">
+                <span class="text-primary">{{ message.sender }}</span>
+                <span class="text-muted">: {{ message.content }}</span>
+                <span class="text-muted time">{{ message.time }}</span>
+              </li>
+            </ul>
+
+            <b-card bg-variant="light" class="w-100 m-2">
+              <b-form @submit="onSubmit">
+                <b-row>
+                  <b-col cols="12" sm="8" md="10" lg="10">
+                    <b-form-input
+                      v-model="form.message"
+                      placeholder="Enter message"
+                      required
+                      style="width: 100%"
+                      class="mt-2"
+                    >
+                    </b-form-input>
+                  </b-col>
+                  <b-col>
+                    <b-button
+                      type="submit"
+                      variant="info"
+                      class="mt-2 font-weight-bold"
+                      >Send</b-button
+                    >
+                  </b-col>
+                </b-row>
+              </b-form>
+            </b-card>
+          </b-col>
+        </b-row>
+        <!-- </b-card-body> -->
       </b-card>
     </b-container>
   </div>
@@ -126,19 +157,19 @@ export default {
   padding-left: 15px;
 }
 .chat span {
-  font-size: 1.4em;
+  font-size: 1.2em;
 }
 .chat .time {
   display: block;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 .messages {
   max-height: 300px;
-  overflow: auto;
+  overflow-y: scroll;
   list-style: none;
 }
 .messages::-webkit-scrollbar {
-  width: 3px;
+  width: 2px;
 }
 .messages::-webkit-scrollbar-track {
   background: #ddd;
